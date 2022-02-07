@@ -3,15 +3,9 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/styles.css';
 
-// function kelvin_Fahrenheit(k) {
-//   return ((k-273.15)*9/5+32)
-// }
-
 $(document).ready(function() {
   $('#weatherLocation').click(function() {
-    // const city = $('#location').val();
     const zipcode = $('#zip').val();
-    // $('#location').val("");
     $('#zip').val("")
 
     let request = new XMLHttpRequest();
@@ -20,6 +14,7 @@ $(document).ready(function() {
     let zipLat = ''
     let zipLon = ''
     let response = ''
+
     request.onreadystatechange = function() {
       if (this.readyState === 4 && this.status === 200) {
         response = JSON.parse(this.responseText);
@@ -44,13 +39,10 @@ $(document).ready(function() {
     request.send();
 
     function getElements(response, geoResponse) {
-      console.log(geoResponse)
-      console.log(response)
-      console.log(zipLat)
-      console.log(zipLon)
       $('.showLocale').text(`${response.name}, ${geoResponse[0].state}, ${response.sys.country}`)
       $('.showHumidity').text(`The humidity is ${response.main.humidity}%`);
       $('.showTemp').text(`The temperature is ${Math.round(response.main.temp)} degrees Fahrenheit.`);
+      $('.weather').text(`Expect ${response.weather.description}.`)
     }
   });
 });
